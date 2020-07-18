@@ -34,5 +34,33 @@ Server master.local:
 	receive-wal running: OK
 	archiver errors: OK
 ```
+---
 
-Проверка работы репликации:
+```
+vagrant ssh master
+```
+```
+[root@master vagrant]# sudo -iu postgres psql -x -c "select * from pg_stat_replication;"
+-[ RECORD 1 ]----+------------------------------
+pid              | 8347
+usesysid         | 16385
+usename          | streaming_barman
+application_name | barman_receive_wal
+client_addr      | 10.0.10.4
+client_hostname  | 
+client_port      | 36348
+backend_start    | 2020-07-18 15:22:01.897704+00
+backend_xmin     | 
+state            | streaming
+sent_lsn         | 0/2000108
+write_lsn        | 0/2000060
+flush_lsn        | 0/2000000
+replay_lsn       | 
+write_lag        | 00:00:06.948414
+flush_lag        | 00:04:58.466727
+replay_lag       | 00:35:28.802531
+sync_priority    | 0
+sync_state       | async
+
+
+```
